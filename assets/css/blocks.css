@@ -1,0 +1,30 @@
+/*
+ * Block editor output on product pages, mapped onto the original design.
+ * Core block CSS is not loaded on the front end, so these rules are complete.
+ */
+section[id]{scroll-margin-top:90px}
+
+/* Buttons: core/buttons wraps each link in a div; let the links sit in the row directly. */
+.btns.wp-block-buttons .wp-block-button{display:contents}
+.btns .wp-block-button__link{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:999px;font-size:17px;font-weight:500;border:1px solid var(--line3);color:var(--fg);text-decoration:none;background:transparent}
+.btns .wp-block-button__link:hover{border-color:var(--accent);color:var(--accent)}
+.btns .is-style-primary .wp-block-button__link{background:#d4f36b;border-color:#d4f36b;color:#0e0e0d}
+.btns .is-style-primary .wp-block-button__link:hover{background:#e4fb93;border-color:#e4fb93;color:#0e0e0d}
+.btns .is-disabled .wp-block-button__link{opacity:.55;cursor:not-allowed;pointer-events:none}
+
+/* Labels written as paragraphs inside cards. */
+.card p.mono{font-size:13px;line-height:normal;color:var(--muted)}
+.card p.soon{font-size:12px;line-height:normal;color:#0e0e0d}
+
+/* Numbered steps use <strong> from the list block. */
+.steps strong{display:block;font-family:'Instrument Serif',serif;font-weight:400;font-size:44px;line-height:1;color:var(--accent);margin-bottom:12px}
+
+.note{font-size:16px;color:var(--muted);margin:14px 0 0}
+.wp-block-image{margin:0}
+.wp-block-image img{height:auto}
+
+/* Plain pages and posts. */
+.entry{max-width:72ch;font-size:18px;line-height:1.65;color:var(--body);padding-top:40px}
+.entry h2,.entry h3{color:var(--fg)}
+.entry a{color:var(--accent);text-decoration:underline}
+.entry img{height:auto;border-radius:14px}

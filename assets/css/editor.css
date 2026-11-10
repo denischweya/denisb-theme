@@ -1,0 +1,4 @@
+/* Block editor canvas: match the product page width and spacing. */
+body{padding:0 clamp(16px,5vw,56px)}
+.wp-block-group.card,.wp-block-group.grid2,.wp-block-group.grid3,.wp-block-group.grid3c,.wp-block-group.shots{max-width:none}
+.btns.wp-block-buttons .wp-block-button{display:block}
