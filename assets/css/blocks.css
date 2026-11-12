@@ -6,7 +6,7 @@ section[id]{scroll-margin-top:90px}
 
 /* Buttons: core/buttons wraps each link in a div; let the links sit in the row directly. */
 .btns.wp-block-buttons .wp-block-button{display:contents}
-.btns .wp-block-button__link{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:999px;font-size:17px;font-weight:500;border:1px solid var(--line3);color:var(--fg);text-decoration:none;background:transparent}
+.btns .wp-block-button__link{width:auto;flex:0 1 auto;max-width:100%;box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:999px;font-size:17px;font-weight:500;border:1px solid var(--line3);color:var(--fg);text-decoration:none;background:transparent}
 .btns .wp-block-button__link:hover{border-color:var(--accent);color:var(--accent)}
 .btns .is-style-primary .wp-block-button__link{background:#d4f36b;border-color:#d4f36b;color:#0e0e0d}
 .btns .is-style-primary .wp-block-button__link:hover{background:#e4fb93;border-color:#e4fb93;color:#0e0e0d}
@@ -28,3 +28,13 @@ section[id]{scroll-margin-top:90px}
 .entry h2,.entry h3{color:var(--fg)}
 .entry a{color:var(--accent);text-decoration:underline}
 .entry img{height:auto;border-radius:14px}
+
+/* Breadcrumbs block: the original separator comes from pages.css. */
+.crumbs.wp-block-breadcrumbs li:not(:last-child)::after{content:none}
+.crumbs.wp-block-breadcrumbs li{display:list-item}
+.crumbs.wp-block-breadcrumbs span{color:var(--muted)}
+
+/* Product banner image (core/image with the "banner" class). */
+.wp-block-image.banner{margin-top:clamp(40px,5vw,64px)}
+.wp-block-image.banner img{width:100%;height:auto;display:block}
+.shots .wp-element-caption{margin:12px 0 0;font-size:16px;line-height:1.5;color:var(--muted)}

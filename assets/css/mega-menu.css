@@ -1,15 +1,15 @@
 /* Products mega menu, shared by the portfolio and product pages. */
 .mm{position:relative;display:inline-flex}
-.mm a.mm-trigger{display:inline-flex;align-items:center;gap:5px;color:var(--muted)}
+.mm .mm-trigger{display:inline-flex;align-items:center;gap:5px;color:var(--muted)}
 .mm-trigger svg{transition:transform .2s}
-.mm:hover a.mm-trigger,.mm:focus-within a.mm-trigger,.mm a.mm-trigger[aria-current]{color:var(--fg)}
+.mm:hover a.mm-trigger,.mm:focus-within a.mm-trigger,.mm .mm-trigger[aria-current]{color:var(--fg)}
 .mm:hover .mm-trigger svg,.mm:focus-within .mm-trigger svg{transform:rotate(180deg)}
 .mm-panel{position:absolute;top:100%;left:50%;z-index:30;padding-top:18px;width:min(680px,calc(100vw - 32px));transform:translate(-50%,6px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .18s ease,transform .18s ease,visibility 0s linear .18s}
 .mm:hover .mm-panel,.mm:focus-within .mm-panel{opacity:1;visibility:visible;pointer-events:auto;transform:translate(-50%,0);transition:opacity .18s ease,transform .18s ease,visibility 0s}
 .mm-inner{background:var(--bg);border:1px solid var(--line2);border-radius:20px;padding:10px;box-shadow:0 24px 60px rgba(0,0,0,.35)}
 .mm-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}
-.mm a.mm-item{display:flex;gap:14px;align-items:flex-start;padding:14px;border-radius:14px;color:var(--fg)}
-.mm a.mm-item:hover,.mm a.mm-item:focus-visible{background:var(--surface);color:var(--fg)}
+.mm .mm-item{display:flex;gap:14px;align-items:flex-start;padding:14px;border-radius:14px;color:var(--fg)}
+.mm .mm-item:hover,.mm .mm-item:focus-visible{background:var(--surface);color:var(--fg)}
 .mm-ico{flex:none;width:44px;height:44px;border-radius:11px;object-fit:cover;background:var(--surface3);border:1px solid var(--line2)}
 .mm-letter{display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:26px;line-height:1;color:var(--accent);padding-top:3px}
 .mm-txt{display:flex;flex-direction:column;gap:3px;min-width:0}

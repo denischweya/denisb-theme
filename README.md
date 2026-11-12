@@ -1,43 +1,66 @@
 # Denis B theme
 
-The WordPress version of [denis.swishfolio.com](https://denis.swishfolio.com/): an editorial portfolio with light and dark modes, case studies, a products catalogue and product landing pages.
+A block theme for [denis.swishfolio.com](https://denis.swishfolio.com/): an editorial portfolio with light and dark modes, case studies, a products catalogue and product landing pages.
 
-It needs the [Denis B plugin](https://github.com/denischweya/denisb-plugin), which provides the content types and settings. Without the plugin, the theme still loads but shows empty sections and an admin notice.
+Every page, section and template is edited in the block editor or the Site Editor. The theme builds no blocks of its own. Sections are made from:
 
-## Templates
+- core blocks,
+- [Swishfolio Core](https://github.com/denischweya/swishfolio-core) blocks,
+- a few blocks from the [Denis B plugin](https://github.com/denischweya/denisb-plugin).
+
+The design comes from block style variations, picked in each block's **Styles** panel.
+
+Requires the Denis B and Swishfolio Core plugins, WordPress 6.7+ and PHP 8.0+.
+
+## Templates and parts
 
 | Template | Shows |
 | --- | --- |
-| `front-page.php` | Hero, featured project, spotlight, shipped products, client work, services, process, experience, testimonials, FAQ, contact |
-| `single-db_project.php` | A case study |
-| `archive-db_product.php` | The `/products/` catalogue with type filters |
-| `single-db_product.php` | A product landing page: the hero comes from fields, the rest from the block editor |
-| `header.php`, `footer.php` | Navigation with the Products mega menu, the theme switcher and the footer |
+| `front-page` | The homepage content, then the contact band and footer |
+| `single-sfcore_project` | A case study, followed by the "Next case study" link |
+| `page-product` | Product pages and the `/products/` catalogue, in the products page style. Pick **Product page** under Template. |
+| `page`, `single`, `index`, `404` | Plain pages and posts |
 
-## Styles
+Parts: `header` (with the Products mega menu), `header-case` (with "All work"), `contact`, `footer`, `footer-case`.
 
-The theme loads only its own CSS. Core block styles and global styles are removed on the front end.
+## Block style variations
+
+Registered in `functions.php` and styled in `assets/css/variations.css`.
+
+| Block | Styles |
+| --- | --- |
+| Group | Hero, Case study hero, Panel, Browser window, Browser window (large), Facts grid, Fact, Link row, Align bottom, Align middle, Site header, Contact band, Site footer, Page |
+| Paragraph | Label, Small label, Mono note, Availability badge, Intro, Body, Body (narrow), Long copy, Case study tagline, Section note, Tagline, Browser bar |
+| Heading | Display, Featured title, Spotlight title, Section heading, Case study heading |
+| Post Title | Case study title, Page title |
+| Button | Lime, Dark, Outline, Black, Header button, Back link (with Swishfolio Core's button icons) |
+| Image | Avatar, Scrolling screenshot, Scrolling screenshot card |
+| List, Quote | Tags, Tags (mono); Inline quote, Large quote |
+| Navigation, Site Title | Header links; Brand |
+| Swishfolio Core Features | Numbered list, Link cards, Service cards, Built cards, Process steps |
+| Swishfolio Core Portfolio, CV, Testimonials, FAQ, Links | Work list, Experience list, Quote cards, Minimal, Underlined links |
+
+Tall screenshots in the scrolling image styles scroll on hover. `motion.js` sets the duration from the image's height.
+
+## theme.json
+
+The palette points at the CSS variables in `base.css`, so the light and dark modes apply to every preset colour. The file also defines:
+
+- the site fonts,
+- the font sizes,
+- the gutter and section spacing presets used for grid gaps and section padding.
+
+## Styles and scripts
 
 | File | Covers |
 | --- | --- |
-| `assets/css/site.css` | Homepage and case studies |
-| `assets/css/pages.css` | Products pages |
-| `assets/css/blocks.css` | Maps core block markup (buttons, groups, paragraphs, images) onto the design |
-| `assets/css/mega-menu.css` | The Products menu |
-
-The editor loads `pages.css`, `blocks.css` and `editor.css`, so product pages look the same while you edit them.
-
-## Scripts
-
-| File | Does |
-| --- | --- |
-| `theme.js` | System, light and dark switcher, saved in `localStorage` |
-| `motion.js` | Rotating hero words, scroll reveals, the custom cursor and the dog. All of it respects `prefers-reduced-motion`. |
-| `products.js` | Catalogue filters |
-
-## Requirements
-
-WordPress 6.5+, PHP 8.0+.
+| `assets/css/base.css` | Colour tokens for light and dark, motion, the dog, scroll frames |
+| `assets/css/variations.css` | Block style variations, and overrides that fit Swishfolio Core blocks to the design |
+| `assets/css/pages.css`, `blocks.css` | Product pages and the catalogue (the `page-product` template) |
+| `assets/css/mega-menu.css` | The Products mega menu |
+| `assets/css/editor.css` | Editor canvas width and spacing |
+| `assets/js/motion.js` | Scroll reveals, scrolling screenshots, the custom cursor and the dog. All of it respects `prefers-reduced-motion`. |
+| `assets/js/rotate.js` | Rotating headline words (the plugin's **Rotating words** format) |
 
 ## License
 

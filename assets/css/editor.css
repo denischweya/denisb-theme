@@ -1,4 +1,19 @@
-/* Block editor canvas: match the product page width and spacing. */
-body{padding:0 clamp(16px,5vw,56px)}
+/*
+ * Block editor canvas. The front end gets its frame from the templates
+ * (main.db-main); the post editor shows only the content, so give it the
+ * same width and side padding here.
+ */
+.is-root-container.wp-block-post-content{max-width:1440px;margin-left:auto;margin-right:auto;padding:0 clamp(20px,5vw,56px)}
+.editor-visual-editor__post-title-wrapper{max-width:1440px;margin:0 auto;padding:24px clamp(20px,5vw,56px) 0}
+.editor-post-title{font-family:'Geist Mono',monospace;font-size:14px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+
+/* Product pages (pages.css). */
 .wp-block-group.card,.wp-block-group.grid2,.wp-block-group.grid3,.wp-block-group.grid3c,.wp-block-group.shots{max-width:none}
 .btns.wp-block-buttons .wp-block-button{display:block}
+
+/* Selecting a link card or work-list row should not follow its stretched link. */
+.sfcore-features.is-style-db-cards .sfcore-features__card-link::after,
+.sfcore-portfolio.is-style-db-worklist .sfcore-portfolio__title a::after{pointer-events:none}
+
+/* Reveal and scroll effects are front-end only. */
+.editor-styles-wrapper .rv{opacity:1;transform:none}

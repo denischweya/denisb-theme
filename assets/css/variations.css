@@ -1,0 +1,293 @@
+/*
+ * Denis B block style variations.
+ *
+ * Every "is-style-db-*" class here is a style registered in functions.php and
+ * picked from the Styles panel in the editor. Selectors that reach into
+ * Swishfolio Core blocks are prefixed with the block class so they win over
+ * the plugin's own defaults without !important, except where the plugin
+ * writes inline styles.
+ */
+
+/* ---------------------------------------------------------------- Frame */
+
+.wp-block-template-part{display:contents}
+.wp-site-blocks{min-height:100vh}
+section[id]{scroll-margin-top:80px}
+.db-main{max-width:1440px;margin:0 auto;padding:0 clamp(20px,5vw,56px)}
+body:not(.home) .db-home-only{display:none!important}
+.screen-reader-text{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.screen-reader-text:focus{position:fixed;top:8px;left:8px;width:auto;height:auto;clip:auto;z-index:100;padding:8px 14px;border-radius:999px;background:var(--fg);color:var(--bg)}
+
+/* ---------------------------------------------------------------- Header */
+
+.is-style-db-nav{position:sticky;top:0;z-index:10;background:var(--nav-bg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.admin-bar .is-style-db-nav{top:var(--wp-admin--admin-bar--height,32px)}
+.is-style-db-nav>.wp-block-group{max-width:1440px;margin:0 auto;padding:16px clamp(20px,5vw,56px);align-items:center}
+.denisb-pages .is-style-db-nav>.wp-block-group{padding:16px clamp(16px,5vw,56px)}
+.is-style-db-nav .is-style-db-brand{margin:0 auto 0 0!important;font-weight:500;font-size:17px;letter-spacing:-.01em;line-height:normal}
+.is-style-db-brand a{color:var(--fg)}
+.is-style-db-brand a:hover{color:var(--accent)}
+
+nav.is-style-db-links{font-size:16px;color:var(--muted)}
+.is-style-db-links .wp-block-navigation__container{display:flex;flex-wrap:wrap;gap:24px;margin:0;padding:0;list-style:none}
+.is-style-db-links .wp-block-navigation__container.is-style-db-links{margin:0}
+.is-style-db-links .wp-block-navigation-item{display:flex;align-items:center}
+.is-style-db-links .wp-block-navigation-item__content{color:var(--muted);padding:0}
+.is-style-db-links .wp-block-navigation-item__content:hover,
+.is-style-db-links .current-menu-item>.wp-block-navigation-item__content{color:var(--fg)}
+
+/* Colour theme toggle (denisb/theme-toggle). */
+.tt{display:flex;gap:2px;padding:3px;border:1px solid var(--line2);border-radius:999px}
+.tt button{width:30px;height:30px;display:flex;align-items:center;justify-content:center;border:0;border-radius:999px;cursor:pointer;background:transparent;color:var(--muted);padding:0}
+.tt button[aria-pressed="true"]{background:var(--surface3);color:var(--fg)}
+.tt svg{width:15px;height:15px}
+
+/* ---------------------------------------------------------------- Buttons */
+
+.wp-block-button[class*="is-style-db-"] .wp-block-button__link{display:flex;align-items:center;gap:10px;font-family:inherit;font-size:17px;font-weight:500;line-height:normal;border-radius:999px;white-space:nowrap;text-decoration:none;border:0;box-shadow:none;transition:background-color .2s,color .2s,border-color .2s}
+.is-style-db-lime .wp-block-button__link{background:#d4f36b;color:#0e0e0d;padding:13px 20px}
+.is-style-db-lime .wp-block-button__link:hover{background:#e4fb93;color:#0e0e0d}
+.is-style-db-dark .wp-block-button__link{background:var(--fg);color:var(--bg);padding:13px 20px}
+.is-style-db-dark .wp-block-button__link:hover{background:#d4f36b;color:#0e0e0d}
+.wp-block-button.is-style-db-outline .wp-block-button__link{background:transparent;color:var(--fg);border:1px solid var(--line2);padding:12px 20px}
+.is-style-db-outline .wp-block-button__link:hover{border-color:var(--fg);color:var(--fg)}
+.wp-block-button.is-style-db-black .wp-block-button__link{display:inline-flex;justify-content:center;gap:12px;min-height:56px;padding:0 28px;background:#0e0e0d;color:#ecebe6;font-size:18px}
+.is-style-db-black .wp-block-button__link:hover{background:#2a2a27;color:#ecebe6}
+.wp-block-button.is-style-db-small .wp-block-button__link{display:inline-block;font-size:16px;background:var(--fg);color:var(--bg);padding:9px 16px}
+.is-style-db-small .wp-block-button__link:hover{background:#d4f36b;color:#0e0e0d}
+.wp-block-button.is-style-db-back .wp-block-button__link{gap:8px;padding:0;border-radius:0;background:transparent;color:var(--muted);font-size:16px;font-weight:400}
+.is-style-db-back .wp-block-button__link:hover{color:var(--fg)}
+
+/* Swishfolio Core button icons, drawn at the original 15px size and weight. */
+.wp-block-button[class*="is-style-db-"] .sfcore-btn-icon{line-height:0}
+.wp-block-button[class*="is-style-db-"] .sfcore-btn-icon svg{width:15px;height:15px;stroke-width:2}
+.is-style-db-back .sfcore-btn-icon svg{width:16px;height:16px}
+.wp-block-button[class*="is-style-db-"] .sfcore-btn-icon:has(line[x1="5"][x2="19"]),
+.wp-block-button[class*="is-style-db-"] .sfcore-btn-icon:has(line[x1="19"][x2="5"]){width:15px;height:15px;background:currentColor;-webkit-mask:var(--db-icon) center/contain no-repeat;mask:var(--db-icon) center/contain no-repeat}
+.is-style-db-back .sfcore-btn-icon:has(line[x1="19"][x2="5"]){width:16px!important;height:16px!important}
+.wp-block-button[class*="is-style-db-"] .sfcore-btn-icon:has(line[x1="5"][x2="19"]){--db-icon:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E")}
+.wp-block-button[class*="is-style-db-"] .sfcore-btn-icon:has(line[x1="19"][x2="5"]){--db-icon:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 12H5M11 18l-6-6 6-6'/%3E%3C/svg%3E")}
+.wp-block-button[class*="is-style-db-"] .sfcore-btn-icon:has(line[x1="5"][x2="19"]) svg,
+.wp-block-button[class*="is-style-db-"] .sfcore-btn-icon:has(line[x1="19"][x2="5"]) svg{display:none}
+.wp-block-button[class*="is-style-db-"]:hover .sfcore-btn-icon{transform:none}
+
+/* ---------------------------------------------------------------- Type */
+
+.is-style-db-display{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(64px,11vw,168px);line-height:.88;letter-spacing:.005em;max-width:12ch}
+.is-style-db-feature-title{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(72px,10vw,160px);line-height:.85;letter-spacing:.005em;min-width:0;overflow-wrap:anywhere}
+.is-style-db-spot-title{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(52px,7vw,96px);line-height:.92;letter-spacing:.005em}
+.is-style-db-h2{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(44px,5.6vw,76px);line-height:.92;letter-spacing:.005em}
+.is-style-db-case-h2{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(40px,4.4vw,60px);line-height:.95}
+.is-style-db-case-title{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(72px,12vw,184px);line-height:.86;letter-spacing:.005em;overflow-wrap:anywhere}
+.single-sfcore_project .is-style-db-h2{letter-spacing:normal}
+
+.is-style-db-label{font-family:'Geist Mono',monospace;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.is-style-db-label.has-accent-color{color:var(--accent)}
+.is-style-db-label-sm{font-family:'Geist Mono',monospace;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.is-style-db-meta{font-family:'Geist Mono',monospace;font-size:14px;color:var(--muted);white-space:nowrap}
+.is-style-db-badge{display:flex;align-items:center;gap:8px;flex:none;font-size:15px;color:var(--accent);border:1px solid var(--badge-line);background:var(--badge-bg);padding:6px 12px;border-radius:999px;white-space:nowrap}
+.is-style-db-badge::before{content:"";display:block;width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulse 2s ease-in-out infinite}
+.is-style-db-intro{font-size:clamp(17px,1.5vw,20px);line-height:1.55;max-width:46ch;color:var(--body)}
+.is-style-db-tagline{font-size:clamp(20px,1.9vw,26px);line-height:1.3;letter-spacing:-.015em}
+.is-style-db-case-tagline{font-size:clamp(20px,2vw,28px);line-height:1.35;letter-spacing:-.015em;max-width:30ch}
+.is-style-db-body{font-size:18px;line-height:1.6;color:var(--body)}
+.is-style-db-body-narrow{font-size:18px;line-height:1.6;color:var(--body);max-width:48ch}
+.is-style-db-copy{font-size:18px;line-height:1.65;color:var(--body);max-width:56ch}
+.is-style-db-note{font-size:17px;color:var(--muted);max-width:38ch}
+
+/* Lists of tags. */
+.wp-block-list.is-style-db-chips,.wp-block-list.is-style-db-chips-mono{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0}
+.is-style-db-chips li{font-size:16px;padding:8px 14px;border:1px solid var(--line2);border-radius:999px}
+.is-style-db-chips-mono li{font-family:'Geist Mono',monospace;font-size:15px;padding:8px 14px;border:1px solid var(--line2);border-radius:999px;color:var(--fg2)}
+
+/* Quotes. */
+.wp-block-quote.is-style-db-quote{margin:8px 0 0;padding:20px 0 0;border:0;border-top:1px solid var(--line);font-family:'Instrument Serif',serif;font-size:22px;line-height:1.35;color:var(--fg2)}
+.wp-block-quote.is-style-db-quote p{margin:0}
+.wp-block-quote.is-style-db-quote cite{display:block;margin-top:12px;font-family:'Geist',sans-serif;font-style:normal;font-size:16px;line-height:normal;color:var(--muted)}
+.wp-block-quote.is-style-db-quote-lg{margin:0;padding:clamp(28px,5vw,64px);border:1px solid var(--line);border-radius:28px;display:flex;flex-direction:column;gap:28px}
+.wp-block-quote.is-style-db-quote-lg p{margin:0;font-family:'Instrument Serif',serif;font-size:clamp(28px,3.4vw,46px);line-height:1.2;max-width:28ch}
+.wp-block-quote.is-style-db-quote-lg cite{font-style:normal;font-size:17px;color:var(--muted)}
+
+/* ---------------------------------------------------------------- Groups */
+
+.is-style-db-bottom{align-items:end}
+.is-style-db-middle{align-items:center}
+.wp-block-group:has(>.is-style-db-h2+.is-style-db-note){align-items:flex-end}
+
+.is-style-db-hero{padding:clamp(72px,12vw,160px) 0 clamp(56px,8vw,96px);display:flex;flex-direction:column;gap:40px}
+.is-style-db-case-hero{padding:clamp(64px,10vw,136px) 0 clamp(40px,6vw,72px);display:flex;flex-direction:column;gap:32px}
+.is-style-db-panel{scroll-margin-top:80px;background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:clamp(24px,4vw,56px);display:flex;flex-direction:column;gap:clamp(28px,4vw,48px)}
+
+/* Row of underlined links ("Vetted by"). The links block sits in the row itself. */
+.is-style-db-vetted{display:flex;flex-wrap:wrap;align-items:baseline;gap:clamp(20px,4vw,48px);padding-top:28px;border-top:1px solid var(--line);font-size:16px;color:var(--muted)}
+.is-style-db-vetted .is-style-db-label{letter-spacing:.04em}
+.wp-block-swishfolio-core-swish-links.is-style-db-vetted{display:contents}
+.is-style-db-vetted .sfcore-link{position:relative;display:inline-block;padding-bottom:4px;border-bottom:2px solid var(--line2);font-family:inherit;font-size:16px;font-weight:400;color:var(--fg2);transition:color .2s ease}
+.is-style-db-vetted .sfcore-link::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:left center;transition:transform .3s ease}
+.is-style-db-vetted .sfcore-link:hover,.is-style-db-vetted .sfcore-link:focus-visible{color:var(--accent)}
+.is-style-db-vetted .sfcore-link:hover::after,.is-style-db-vetted .sfcore-link:focus-visible::after{transform:scaleX(1)}
+.is-style-db-vetted .sfcore-link__text::after{display:none}
+
+/* Facts grid. */
+.is-style-db-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.is-style-db-fact{background:var(--surface);padding:20px;display:flex;flex-direction:column;gap:6px}
+.is-style-db-case-hero .is-style-db-fact{background:var(--bg)}
+
+/* Browser window around a screenshot. */
+.is-style-db-browser,.is-style-db-browser-lg{border-radius:16px;overflow:hidden;border:1px solid var(--line2);background:var(--surface3)}
+.is-style-db-browser-lg{display:block;border-radius:24px;border-color:var(--line);background:var(--surface);transition:border-color .2s}
+.is-style-db-browser-lg:hover{border-color:var(--line3)}
+.is-style-db-host{display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line2);font-family:'Geist Mono',monospace;font-size:14px;line-height:normal;color:var(--muted)}
+.is-style-db-browser-lg .is-style-db-host{border-bottom-color:var(--line)}
+.is-style-db-host::before{content:"";flex:none;width:10px;height:10px;margin-right:46px;border-radius:50%;background:var(--line2);box-shadow:17px 0 0 var(--line2),34px 0 0 var(--line2)}
+
+/* Scrolling screenshots. motion.js adds .is-scrollable and the duration to tall images. */
+.wp-block-image.is-style-db-scroll,.wp-block-image.is-style-db-scroll-card{position:relative;overflow:hidden;margin:0}
+.wp-block-image.is-style-db-scroll{aspect-ratio:16/9}
+.wp-block-image.is-style-db-scroll-card{aspect-ratio:4/3;border-radius:20px;border:1px solid var(--line);background:var(--surface);align-self:center;transition:border-color .2s}
+.wp-block-image.is-style-db-scroll-card:hover{border-color:var(--line3)}
+.wp-block-image.is-style-db-scroll a,.wp-block-image.is-style-db-scroll-card a{display:block;height:100%}
+.wp-block-image.is-style-db-scroll img,.wp-block-image.is-style-db-scroll-card img{display:block;width:100%;height:100%;max-width:none;object-fit:cover;object-position:center top;transition:object-position .7s ease-out}
+@media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+	.wp-block-image.is-scrollable:hover img,.is-style-db-browser-lg:hover .wp-block-image.is-scrollable img{object-position:center bottom;transition-duration:var(--project-scroll-duration,7s);transition-timing-function:linear}
+}
+
+/* Avatar. */
+.wp-block-image.is-style-db-avatar{flex:none;width:48px;margin:0}
+.wp-block-image.is-style-db-avatar img{width:48px;height:48px;border-radius:50%;object-fit:cover;background:var(--surface3)}
+
+/* Contact band. */
+.is-style-db-contact{scroll-margin-top:80px;margin-top:clamp(80px,10vw,140px);width:100%;padding:clamp(72px,10vw,140px) clamp(20px,5vw,56px);background:#d4f36b;color:#0e0e0d;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;text-align:center}
+.single-sfcore_project .is-style-db-contact{margin-top:clamp(72px,9vw,128px)}
+.is-style-db-contact h2{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(56px,8vw,112px);line-height:.92;letter-spacing:.005em;color:#0e0e0d}
+.single-sfcore_project .is-style-db-contact h2{letter-spacing:normal}
+.is-style-db-contact p{font-size:18px;line-height:1.55;max-width:48ch;color:#2a2e17}
+
+/* Footer. */
+.is-style-db-footer{max-width:1440px;margin:0 auto;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:40px clamp(20px,5vw,56px);font-size:15px;color:var(--muted)}
+.is-style-db-footer a{color:var(--fg2)}
+.is-style-db-footer a:hover{color:var(--accent)}
+.denisb-pages .is-style-db-footer{margin-top:clamp(72px,9vw,128px);padding:40px clamp(16px,5vw,56px);border-top:1px solid var(--line)}
+
+/* Plain pages and posts. */
+.is-style-db-page{padding:clamp(56px,8vw,112px) 0 0}
+.is-style-db-page-title{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(48px,9.5vw,136px);line-height:.92;letter-spacing:.005em;overflow-wrap:break-word}
+.entry{max-width:72ch;font-size:18px;line-height:1.65;color:var(--body);padding-top:40px}
+.entry>*+*{margin-top:1em}
+.entry h2,.entry h3{color:var(--fg)}
+.entry a{color:var(--accent);text-decoration:underline}
+.entry img{height:auto;border-radius:14px}
+
+/* ---------------------------------------------------------------- Swishfolio Core: Features */
+
+.sfcore-features:is(.is-style-db-numbered,.is-style-db-cards,.is-style-db-services,.is-style-db-built,.is-style-db-steps){max-width:none;margin:0;padding:0}
+.sfcore-features:is(.is-style-db-numbered,.is-style-db-cards,.is-style-db-services,.is-style-db-built,.is-style-db-steps) .sfcore-features__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px}
+.sfcore-features:is(.is-style-db-numbered,.is-style-db-cards,.is-style-db-services,.is-style-db-built,.is-style-db-steps) .sfcore-features__card{grid-column:auto;min-height:0;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;overflow:visible;transform:none;color:var(--fg)}
+.sfcore-features:is(.is-style-db-numbered,.is-style-db-cards,.is-style-db-services,.is-style-db-built,.is-style-db-steps) .sfcore-features__card-inner{display:flex;flex-direction:column;gap:10px;height:100%}
+.sfcore-features:is(.is-style-db-numbered,.is-style-db-cards,.is-style-db-services,.is-style-db-built,.is-style-db-steps) .sfcore-features__card-header{margin:0}
+.sfcore-features:is(.is-style-db-numbered,.is-style-db-cards,.is-style-db-services,.is-style-db-built,.is-style-db-steps) .sfcore-features__card-subheading{display:block;font-family:'Geist Mono',monospace;font-size:14px!important;font-weight:400;letter-spacing:normal;line-height:normal;text-transform:none;opacity:1;color:var(--accent)}
+.sfcore-features:is(.is-style-db-numbered,.is-style-db-cards,.is-style-db-services,.is-style-db-built,.is-style-db-steps) .sfcore-features__card-title{margin:0;font-family:inherit;font-size:19px!important;font-weight:500;letter-spacing:-.01em;line-height:normal;text-transform:none;text-shadow:none;color:var(--fg)!important}
+.sfcore-features:is(.is-style-db-numbered,.is-style-db-cards,.is-style-db-services,.is-style-db-built,.is-style-db-steps) .sfcore-features__card-description{margin:0;max-width:none;font-size:18px;font-weight:400;line-height:1.6;opacity:1;color:var(--body)!important}
+.sfcore-features:is(.is-style-db-numbered,.is-style-db-cards,.is-style-db-services,.is-style-db-built,.is-style-db-steps) .sfcore-features__card-icon{display:none}
+
+.sfcore-features.is-style-db-numbered .sfcore-features__grid{gap:clamp(28px,3vw,40px)}
+
+.sfcore-features.is-style-db-services .sfcore-features__card,
+.sfcore-features.is-style-db-built .sfcore-features__card{padding:28px;border-radius:20px;background:var(--surface)}
+.sfcore-features.is-style-db-services .sfcore-features__card-inner{gap:14px}
+.sfcore-features.is-style-db-services .sfcore-features__card-title{font-size:22px!important;letter-spacing:-.02em}
+.sfcore-features.is-style-db-built .sfcore-features__card-inner{gap:12px}
+.sfcore-features.is-style-db-built .sfcore-features__card-title{font-size:21px!important;letter-spacing:-.015em}
+.sfcore-features.is-style-db-built .sfcore-features__card-description{font-size:17px}
+
+.sfcore-features.is-style-db-steps .sfcore-features__grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:clamp(24px,3vw,40px)}
+.sfcore-features.is-style-db-steps .sfcore-features__card{padding-top:20px;border-top:1px solid var(--line2)}
+.sfcore-features.is-style-db-steps .sfcore-features__card-inner{gap:12px}
+.sfcore-features.is-style-db-steps .sfcore-features__card-subheading{font-family:'Instrument Serif',serif;font-size:44px!important;line-height:1}
+.sfcore-features.is-style-db-steps .sfcore-features__card-title{letter-spacing:normal}
+
+/* Link cards: the whole card is the link. */
+.sfcore-features.is-style-db-cards .sfcore-features__card{position:relative;padding:28px;border:1px solid var(--line);border-radius:20px;background:var(--surface2);min-height:260px;transition:border-color .2s,background-color .2s}
+.sfcore-features.is-style-db-cards .sfcore-features__card:hover{border-color:var(--line3);background:var(--surface)}
+.sfcore-features.is-style-db-cards .sfcore-features__card-inner{gap:14px}
+.sfcore-features.is-style-db-cards .sfcore-features__card-subheading{font-size:13px!important;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.sfcore-features.is-style-db-cards .sfcore-features__card-title{font-size:24px!important;letter-spacing:-.02em}
+.sfcore-features.is-style-db-cards .sfcore-features__card-description{flex:1}
+.sfcore-features.is-style-db-cards .sfcore-features__card-cta-wrapper{margin:0;padding:0}
+.sfcore-features.is-style-db-cards .sfcore-features__card-link{display:inline;font-size:16px;font-weight:400;letter-spacing:normal;text-transform:none;color:var(--accent)!important;background:none!important;transform:none}
+.sfcore-features.is-style-db-cards .sfcore-features__card-link::after{content:"";position:absolute;inset:0;border-radius:inherit}
+.sfcore-features.is-style-db-cards .sfcore-features__card-link svg{display:none}
+
+/* ---------------------------------------------------------------- Swishfolio Core: Portfolio (work list) */
+
+.sfcore-portfolio.is-style-db-worklist .sfcore-portfolio__grid{display:flex;flex-direction:column;gap:0;overflow:visible;border-top:1px solid var(--line)}
+.sfcore-portfolio.is-style-db-worklist .sfcore-portfolio__card{position:relative;display:grid;grid-template-columns:96px minmax(0,1fr) auto;grid-template-areas:"img name client" "img stack client";gap:4px clamp(16px,3vw,32px);align-items:center;height:auto;padding:18px 0;border:0;border-bottom:1px solid var(--line);border-radius:0;box-shadow:none;overflow:visible;transform:none;transition:background-color .2s}
+.sfcore-portfolio.is-style-db-worklist .sfcore-portfolio__card:hover{background:var(--surface2)}
+.sfcore-portfolio.is-style-db-worklist .sfcore-portfolio__image{grid-area:img;width:96px;height:64px;aspect-ratio:auto!important;border:0;border-radius:10px;overflow:hidden;background:var(--surface3)}
+.sfcore-portfolio.is-style-db-worklist .sfcore-portfolio__image img{width:100%;height:100%;object-fit:cover;object-position:top;transform:none}
+.sfcore-portfolio.is-style-db-worklist .sfcore-portfolio__content{display:contents}
+.sfcore-portfolio.is-style-db-worklist .sfcore-portfolio__title{grid-area:name;align-self:end;margin:0;font-size:clamp(18px,2vw,24px);font-weight:400;letter-spacing:-.02em;line-height:normal;text-transform:none;text-shadow:none;color:var(--fg);min-width:0}
+.sfcore-portfolio.is-style-db-worklist .sfcore-portfolio__title a{color:inherit}
+.sfcore-portfolio.is-style-db-worklist .sfcore-portfolio__title a::after{content:"";position:absolute;inset:0}
+.sfcore-portfolio.is-style-db-worklist .sfcore-portfolio__card:hover .sfcore-portfolio__title{color:var(--accent)}
+.sfcore-portfolio.is-style-db-worklist .sfcore-portfolio__excerpt{grid-area:stack;align-self:start;margin:0;font-size:16px;font-weight:400;line-height:normal;opacity:1;color:var(--muted)}
+.sfcore-portfolio.is-style-db-worklist .sfcore-portfolio__meta-item{grid-area:client;margin:0;display:block;font-family:'Geist Mono',monospace;font-size:14px;color:var(--muted);text-align:right;white-space:nowrap}
+.sfcore-portfolio.is-style-db-worklist .sfcore-portfolio__meta-value{font-weight:400;color:inherit}
+.sfcore-portfolio.is-style-db-worklist .sfcore-portfolio__meta-item::after{content:"→";margin-left:.3em}
+.sfcore-portfolio.is-style-db-worklist .sfcore-portfolio__meta-label,
+.sfcore-portfolio.is-style-db-worklist .sfcore-portfolio__actions,
+.sfcore-portfolio.is-style-db-worklist .sfcore-portfolio__filters{display:none}
+@media (max-width:700px){
+	.sfcore-portfolio.is-style-db-worklist .sfcore-portfolio__card{grid-template-columns:76px minmax(0,1fr) auto;gap:4px 14px;padding:16px 0}
+	.sfcore-portfolio.is-style-db-worklist .sfcore-portfolio__image{width:76px;height:54px;border-radius:8px}
+	.sfcore-portfolio.is-style-db-worklist .sfcore-portfolio__title{font-size:17px;line-height:1.25}
+	.sfcore-portfolio.is-style-db-worklist .sfcore-portfolio__excerpt{font-size:13px;line-height:1.45}
+	.sfcore-portfolio.is-style-db-worklist .sfcore-portfolio__meta-value{display:none}
+	.sfcore-portfolio.is-style-db-worklist .sfcore-portfolio__meta-item::after{margin:0;font-size:16px}
+}
+
+/* ---------------------------------------------------------------- Swishfolio Core: CV (experience)
+ * The middle column and the role heading use display:contents, so the company
+ * name, the role and the description each take their own grid row, as in the
+ * original design. */
+
+.wp-block-swishfolio-core-swish-cv.is-style-db-experience{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.is-style-db-experience .wp-block-swishfolio-core-swish-cv__row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 24px;align-items:start;padding:18px 0;border:0;border-bottom:1px solid var(--line)}
+.is-style-db-experience .wp-block-swishfolio-core-swish-cv__row:hover{padding-left:0}
+.is-style-db-experience .wp-block-swishfolio-core-swish-cv__row:last-child{border-bottom:1px solid var(--line)}
+.is-style-db-experience .wp-block-swishfolio-core-swish-cv__middle{display:contents}
+.is-style-db-experience .wp-block-swishfolio-core-swish-cv__year{grid-column:2;grid-row:1;padding-top:4px;font-family:'Geist Mono',monospace;font-size:14px;letter-spacing:normal;color:var(--muted);text-align:right}
+.is-style-db-experience .wp-block-swishfolio-core-swish-cv__role{display:contents;margin:0;font-family:inherit;font-size:17px;font-weight:500;letter-spacing:normal;line-height:normal;color:var(--fg)}
+.is-style-db-experience .wp-block-swishfolio-core-swish-cv__role-at{grid-column:1/-1;font-size:16px;font-weight:400;color:var(--body)}
+.is-style-db-experience .wp-block-swishfolio-core-swish-cv__description{grid-column:1/-1;margin:6px 0 0;max-width:none;font-size:14px;line-height:1.55;color:var(--muted)}
+.is-style-db-experience .wp-block-swishfolio-core-swish-cv__location:empty{display:none}
+
+/* ---------------------------------------------------------------- Swishfolio Core: Testimonials */
+
+.sfcore-testimonials.is-style-db-quotes .sfcore-testimonials__grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px}
+.sfcore-testimonials.is-style-db-quotes .sfcore-testimonial-card{margin:0;min-height:0;padding:32px;border:1px solid var(--line);border-radius:20px;background:transparent;box-shadow:none;display:flex;flex-direction:column;justify-content:space-between;gap:28px}
+.sfcore-testimonials.is-style-db-quotes .sfcore-testimonial-card__quote-mark,
+.sfcore-testimonials.is-style-db-quotes .sfcore-testimonial-card__avatar,
+.sfcore-testimonials.is-style-db-quotes .sfcore-testimonial-card__role:empty{display:none}
+.sfcore-testimonials.is-style-db-quotes .sfcore-testimonial-card__quote{flex:none;margin:0;font-family:'Instrument Serif',serif;font-size:24px;font-weight:400;letter-spacing:normal;line-height:1.3;color:var(--fg)}
+.sfcore-testimonials.is-style-db-quotes .sfcore-testimonial-card__attribution{display:block;padding:0;border:0}
+.sfcore-testimonials.is-style-db-quotes .sfcore-testimonial-card__name{font-size:16px;font-weight:400;color:var(--muted)}
+.sfcore-testimonials.is-style-db-quotes .sfcore-testimonial-card__role{font-size:16px;color:var(--muted)}
+
+/* ---------------------------------------------------------------- Swishfolio Core: FAQ */
+
+.sfcore-faq.is-style-db-faq{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.sfcore-faq.is-style-db-faq .sfcore-faq__item{margin:0;border:0;border-bottom:1px solid var(--line);border-radius:0;background:transparent;box-shadow:none}
+.sfcore-faq.is-style-db-faq .sfcore-faq__header{display:flex;justify-content:space-between;align-items:center;gap:16px;width:100%;padding:20px 0;border:0;background:none;font-family:inherit;font-size:17px;font-weight:500;line-height:normal;text-align:left;color:var(--fg);cursor:pointer}
+.sfcore-faq.is-style-db-faq .sfcore-faq__header:hover{background:none;color:var(--accent)}
+.sfcore-faq.is-style-db-faq .sfcore-faq__header:focus{outline:0}
+.sfcore-faq.is-style-db-faq .sfcore-faq__header:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.sfcore-faq.is-style-db-faq .sfcore-faq__question{flex:1;letter-spacing:normal;text-transform:none;text-shadow:none;color:inherit}
+.sfcore-faq.is-style-db-faq .sfcore-faq__icon{width:auto;height:auto;border:0;font-size:22px;font-weight:300;line-height:1;color:var(--accent);transition:transform .2s}
+.sfcore-faq.is-style-db-faq .sfcore-faq__item.is-open .sfcore-faq__icon{transform:rotate(45deg)}
+.sfcore-faq.is-style-db-faq .sfcore-faq__content{padding:0;border:0;animation:none}
+.sfcore-faq.is-style-db-faq .sfcore-faq__answer{max-width:60ch;padding:0 0 22px;font-size:18px;line-height:1.65;opacity:1;color:var(--body)}
+
+@media (prefers-reduced-motion:reduce){
+	.is-style-db-badge::before{animation:none}
+}

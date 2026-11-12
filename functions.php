@@ -2,33 +2,41 @@
 /**
  * Denis B theme setup.
  *
+ * A block theme: layout lives in templates/ and parts/, content in the
+ * editor, and the design in block style variations (assets/css/variations.css).
+ *
  * @package DenisB_Theme
  */
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'DENISB_THEME_VERSION', '1.0.0' );
-
-require_once get_template_directory() . '/inc/template-tags.php';
+define( 'DENISB_THEME_VERSION', '2.0.0' );
 
 add_action(
 	'after_setup_theme',
 	static function () {
 		load_theme_textdomain( 'denisb', get_template_directory() . '/languages' );
-		add_theme_support( 'title-tag' );
-		add_theme_support( 'post-thumbnails' );
-		add_theme_support( 'html5', array( 'style', 'script', 'navigation-widgets' ) );
 		add_theme_support( 'editor-styles' );
-		add_editor_style( array( 'assets/css/pages.css', 'assets/css/blocks.css', 'assets/css/editor.css' ) );
+		add_editor_style( array( 'assets/css/base.css', 'assets/css/variations.css', 'assets/css/mega-menu.css', 'assets/css/editor.css' ) );
 	}
 );
 
 /**
- * Which stylesheet family the current view uses: "site" for the homepage and
- * case studies, "pages" for everything else.
+ * Whether the current view is a product page or the products catalogue,
+ * which use the original "pages" stylesheet.
+ *
+ * @param int|null $post_id Post to check. Defaults to the queried object.
  */
-function denisb_view(): string {
-	return ( is_front_page() || is_singular( 'db_project' ) ) ? 'site' : 'pages';
+function denisb_is_product_view( ?int $post_id = null ): bool {
+	$post_id = $post_id ?? ( is_singular() ? get_queried_object_id() : 0 );
+	return $post_id && 'page-product' === get_page_template_slug( $post_id );
+}
+
+/**
+ * Google Fonts stylesheet used on the site and in the editor canvas.
+ */
+function denisb_fonts_url(): string {
+	return 'https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap';
 }
 
 add_action(
@@ -37,152 +45,171 @@ add_action(
 		$uri = get_template_directory_uri() . '/assets';
 		$ver = DENISB_THEME_VERSION;
 
-		wp_enqueue_style( 'denisb-fonts', 'https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap', array(), null ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion -- Google Fonts URLs are versioned by their query.
-		if ( 'site' === denisb_view() ) {
-			wp_enqueue_style( 'denisb-site', "$uri/css/site.css", array( 'denisb-fonts' ), $ver );
-		} else {
-			wp_enqueue_style( 'denisb-pages', "$uri/css/pages.css", array( 'denisb-fonts' ), $ver );
+		wp_enqueue_style( 'denisb-fonts', denisb_fonts_url(), array(), null ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion -- Google Fonts URLs are versioned by their query.
+		wp_enqueue_style( 'denisb-base', "$uri/css/base.css", array( 'denisb-fonts' ), $ver );
+		if ( denisb_is_product_view() ) {
+			wp_enqueue_style( 'denisb-pages', "$uri/css/pages.css", array( 'denisb-base' ), $ver );
 			wp_enqueue_style( 'denisb-blocks', "$uri/css/blocks.css", array( 'denisb-pages' ), $ver );
 		}
-		wp_enqueue_style( 'denisb-mega-menu', "$uri/css/mega-menu.css", array(), $ver );
+		wp_enqueue_style( 'denisb-variations', "$uri/css/variations.css", array( 'denisb-base' ), $ver );
+		wp_enqueue_style( 'denisb-mega-menu', "$uri/css/mega-menu.css", array( 'denisb-base' ), $ver );
 
-		wp_enqueue_script( 'denisb-theme', "$uri/js/theme.js", array(), $ver, array( 'strategy' => 'defer', 'in_footer' => true ) );
-		if ( is_front_page() || is_singular( 'db_project' ) ) {
+		if ( is_front_page() || is_singular( 'sfcore_project' ) ) {
 			wp_enqueue_script( 'denisb-motion', "$uri/js/motion.js", array(), $ver, array( 'strategy' => 'defer', 'in_footer' => true ) );
 		}
-		if ( is_post_type_archive( 'db_product' ) ) {
-			wp_enqueue_script( 'denisb-products', "$uri/js/products.js", array(), $ver, array( 'strategy' => 'defer', 'in_footer' => true ) );
-		}
-
+		wp_enqueue_script( 'denisb-rotate', "$uri/js/rotate.js", array(), $ver, array( 'strategy' => 'defer', 'in_footer' => true ) );
 	},
 	20
 );
 
-/**
- * Removes core block CSS. The design supplies every style it needs, and blocks
- * enqueue their styles while rendering, so this runs again before footer styles.
- */
-function denisb_dequeue_core_styles(): void {
-	foreach ( wp_styles()->queue as $handle ) {
-		if ( str_starts_with( $handle, 'wp-block-' ) || in_array( $handle, array( 'classic-theme-styles', 'global-styles', 'core-block-supports' ), true ) ) {
-			wp_dequeue_style( $handle );
-		}
-	}
-}
-add_action( 'wp_print_styles', 'denisb_dequeue_core_styles', 1 );
-add_action( 'wp_print_footer_scripts', 'denisb_dequeue_core_styles', 1 );
-
 /*
- * Apply the saved colour theme before first paint.
+ * Editor canvas: the site fonts, and the "pages" stylesheet for product pages.
  */
 add_action(
-	'wp_head',
+	'enqueue_block_assets',
 	static function () {
-		echo "<script>try{var t=localStorage.getItem('dbTheme');if(t&&t!=='system')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>\n";
-	},
-	1
-);
-
-add_action(
-	'init',
-	static function () {
-		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
-		remove_action( 'wp_print_styles', 'print_emoji_styles' );
-		register_block_style( 'core/button', array( 'name' => 'primary', 'label' => __( 'Primary', 'denisb' ) ) );
-		// Keep core block and global styles off the front end; blocks.css styles block output.
 		if ( ! is_admin() ) {
-			remove_action( 'wp_enqueue_scripts', 'wp_enqueue_global_styles' );
-			remove_action( 'wp_footer', 'wp_enqueue_global_styles', 1 );
-		}
-		// Group blocks render as plain wrappers so the original grid and card CSS applies directly.
-		remove_filter( 'render_block_core/group', 'wp_restore_group_inner_container', 10 );
-	}
-);
-
-/*
- * Document titles: SEO title fields override the defaults.
- */
-add_filter(
-	'pre_get_document_title',
-	static function ( string $title ) {
-		if ( ! function_exists( 'denisb_option' ) ) {
-			return $title;
-		}
-		if ( is_front_page() ) {
-			return denisb_option( 'seo_title', $title );
-		}
-		if ( is_singular( 'db_product' ) && denisb_meta( 'seo_title' ) ) {
-			return denisb_meta( 'seo_title' );
-		}
-		if ( is_singular( 'db_project' ) ) {
-			return get_the_title() . ' | ' . denisb_option( 'name', get_bloginfo( 'name' ) );
-		}
-		if ( is_post_type_archive( 'db_product' ) && denisb_option( 'products_seo' ) ) {
-			return denisb_option( 'products_seo' );
-		}
-		return $title;
-	}
-);
-
-add_action( 'wp_head', 'denisb_seo_tags', 2 );
-
-/**
- * Prints the description, canonical, Open Graph and JSON-LD tags.
- */
-function denisb_seo_tags(): void {
-	if ( ! function_exists( 'denisb_option' ) ) {
-		return;
-	}
-	$desc   = '';
-	$image  = '';
-	$schema = '';
-	if ( is_front_page() ) {
-		$desc = denisb_option( 'seo_desc' );
-	} elseif ( is_singular( 'db_product' ) ) {
-		$desc   = denisb_meta( 'seo_desc' );
-		$image  = denisb_image_url( denisb_meta( 'banner' ) );
-		$schema = denisb_meta( 'schema' );
-	} elseif ( is_singular( 'db_project' ) ) {
-		$desc  = denisb_meta( 'tagline' );
-		$image = (string) get_the_post_thumbnail_url( null, 'large' );
-	} elseif ( is_post_type_archive( 'db_product' ) ) {
-		$desc = denisb_option( 'products_seo_desc' );
-	}
-	if ( ! $desc ) {
-		return;
-	}
-	$title = wp_get_document_title();
-	$url   = is_post_type_archive( 'db_product' ) ? get_post_type_archive_link( 'db_product' ) : ( is_front_page() ? home_url( '/' ) : get_permalink() );
-	printf( "<meta name=\"description\" content=\"%s\">\n", esc_attr( $desc ) );
-	printf( "<meta name=\"robots\" content=\"index,follow,max-image-preview:large\">\n" );
-	printf( "<meta property=\"og:type\" content=\"website\">\n<meta property=\"og:site_name\" content=\"%s\">\n", esc_attr( denisb_option( 'name', get_bloginfo( 'name' ) ) ) );
-	printf( "<meta property=\"og:title\" content=\"%s\">\n<meta property=\"og:description\" content=\"%s\">\n<meta property=\"og:url\" content=\"%s\">\n", esc_attr( $title ), esc_attr( $desc ), esc_url( (string) $url ) );
-	printf( "<meta name=\"twitter:card\" content=\"%s\">\n<meta name=\"twitter:title\" content=\"%s\">\n<meta name=\"twitter:description\" content=\"%s\">\n", $image ? 'summary_large_image' : 'summary', esc_attr( $title ), esc_attr( $desc ) );
-	if ( $image ) {
-		printf( "<meta property=\"og:image\" content=\"%1\$s\">\n<meta name=\"twitter:image\" content=\"%1\$s\">\n", esc_url( $image ) );
-	}
-	if ( $schema && null !== json_decode( $schema ) ) {
-		echo '<script type="application/ld+json">' . wp_json_encode( json_decode( $schema ), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) . "</script>\n";
-	}
-}
-
-/*
- * Without the Denis B plugin the theme has no content to show.
- */
-add_action(
-	'admin_notices',
-	static function () {
-		if ( function_exists( 'denisb_option' ) || ! current_user_can( 'activate_plugins' ) ) {
 			return;
 		}
-		echo '<div class="notice notice-warning"><p>' . esc_html__( 'The Denis B theme needs the Denis B plugin for its content. Install and activate it.', 'denisb' ) . '</p></div>';
+		wp_enqueue_style( 'denisb-fonts', denisb_fonts_url(), array(), null ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion -- Google Fonts URLs are versioned by their query.
+		$post_id = isset( $_GET['post'] ) ? absint( $_GET['post'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( $post_id && denisb_is_product_view( $post_id ) ) {
+			$uri = get_template_directory_uri() . '/assets';
+			wp_enqueue_style( 'denisb-pages', "$uri/css/pages.css", array(), DENISB_THEME_VERSION );
+			wp_enqueue_style( 'denisb-blocks', "$uri/css/blocks.css", array( 'denisb-pages' ), DENISB_THEME_VERSION );
+		}
 	}
 );
 
 add_filter(
 	'body_class',
-	static function ( array $classes ) {
-		$classes[] = 'denisb-' . denisb_view();
+	static function ( array $classes ): array {
+		$classes[] = denisb_is_product_view() ? 'denisb-pages' : 'denisb-site';
 		return $classes;
+	}
+);
+
+/*
+ * Block style variations. The styles live in assets/css/variations.css.
+ */
+add_action(
+	'init',
+	static function () {
+		$styles = array(
+			'core/group'                       => array(
+				'db-hero'         => __( 'Hero', 'denisb' ),
+				'db-case-hero'    => __( 'Case study hero', 'denisb' ),
+				'db-panel'        => __( 'Panel', 'denisb' ),
+				'db-browser'      => __( 'Browser window', 'denisb' ),
+				'db-browser-lg'   => __( 'Browser window (large)', 'denisb' ),
+				'db-facts'        => __( 'Facts grid', 'denisb' ),
+				'db-fact'         => __( 'Fact', 'denisb' ),
+				'db-vetted'       => __( 'Link row', 'denisb' ),
+				'db-bottom'       => __( 'Align bottom', 'denisb' ),
+				'db-middle'       => __( 'Align middle', 'denisb' ),
+				'db-nav'          => __( 'Site header', 'denisb' ),
+				'db-contact'      => __( 'Contact band', 'denisb' ),
+				'db-footer'       => __( 'Site footer', 'denisb' ),
+				'db-page'         => __( 'Page', 'denisb' ),
+			),
+			'core/paragraph'                   => array(
+				'db-label'    => __( 'Label', 'denisb' ),
+				'db-label-sm' => __( 'Small label', 'denisb' ),
+				'db-meta'     => __( 'Mono note', 'denisb' ),
+				'db-badge'    => __( 'Availability badge', 'denisb' ),
+				'db-intro'    => __( 'Intro', 'denisb' ),
+				'db-body'     => __( 'Body', 'denisb' ),
+				'db-body-narrow' => __( 'Body (narrow)', 'denisb' ),
+				'db-copy'     => __( 'Long copy', 'denisb' ),
+				'db-case-tagline' => __( 'Case study tagline', 'denisb' ),
+				'db-note'     => __( 'Section note', 'denisb' ),
+				'db-tagline'  => __( 'Tagline', 'denisb' ),
+				'db-host'     => __( 'Browser bar', 'denisb' ),
+			),
+			'core/heading'                     => array(
+				'db-display'       => __( 'Display', 'denisb' ),
+				'db-feature-title' => __( 'Featured title', 'denisb' ),
+				'db-spot-title'    => __( 'Spotlight title', 'denisb' ),
+				'db-h2'            => __( 'Section heading', 'denisb' ),
+				'db-case-h2'       => __( 'Case study heading', 'denisb' ),
+			),
+			'core/post-title'                  => array(
+				'db-case-title'  => __( 'Case study title', 'denisb' ),
+				'db-page-title'  => __( 'Page title', 'denisb' ),
+			),
+			'core/list'                        => array(
+				'db-chips'      => __( 'Tags', 'denisb' ),
+				'db-chips-mono' => __( 'Tags (mono)', 'denisb' ),
+			),
+			'core/quote'                       => array(
+				'db-quote'    => __( 'Inline quote', 'denisb' ),
+				'db-quote-lg' => __( 'Large quote', 'denisb' ),
+			),
+			'core/image'                       => array(
+				'db-avatar'      => __( 'Avatar', 'denisb' ),
+				'db-scroll'      => __( 'Scrolling screenshot', 'denisb' ),
+				'db-scroll-card' => __( 'Scrolling screenshot card', 'denisb' ),
+			),
+			'core/button'                      => array(
+				'db-lime'    => __( 'Lime', 'denisb' ),
+				'db-dark'    => __( 'Dark', 'denisb' ),
+				'db-outline' => __( 'Outline', 'denisb' ),
+				'db-black'   => __( 'Black', 'denisb' ),
+				'db-small'   => __( 'Header button', 'denisb' ),
+				'db-back'    => __( 'Back link', 'denisb' ),
+			),
+			'core/navigation'                  => array(
+				'db-links' => __( 'Header links', 'denisb' ),
+			),
+			'core/site-title'                  => array(
+				'db-brand' => __( 'Brand', 'denisb' ),
+			),
+			'swishfolio-core/features'         => array(
+				'db-numbered' => __( 'Numbered list', 'denisb' ),
+				'db-cards'    => __( 'Link cards', 'denisb' ),
+				'db-services' => __( 'Service cards', 'denisb' ),
+				'db-built'    => __( 'Built cards', 'denisb' ),
+				'db-steps'    => __( 'Process steps', 'denisb' ),
+			),
+			'swishfolio-core/swish-links'      => array(
+				'db-vetted' => __( 'Underlined links', 'denisb' ),
+			),
+			'swishfolio-core/swish-cv'         => array(
+				'db-experience' => __( 'Experience list', 'denisb' ),
+			),
+			'swishfolio-core/testimonials'     => array(
+				'db-quotes' => __( 'Quote cards', 'denisb' ),
+			),
+			'swishfolio-core/faq'              => array(
+				'db-faq' => __( 'Minimal', 'denisb' ),
+			),
+			'swishfolio-core/portfolio'        => array(
+				'db-worklist' => __( 'Work list', 'denisb' ),
+			),
+		);
+		foreach ( $styles as $block => $variations ) {
+			foreach ( $variations as $name => $label ) {
+				register_block_style(
+					$block,
+					array(
+						'name'  => $name,
+						'label' => $label,
+					)
+				);
+			}
+		}
+	}
+);
+
+/*
+ * Ask for the plugin pair when it is missing.
+ */
+add_action(
+	'admin_notices',
+	static function () {
+		if ( defined( 'DENISB_VERSION' ) || ! current_user_can( 'activate_plugins' ) ) {
+			return;
+		}
+		echo '<div class="notice notice-warning"><p>' . esc_html__( 'The Denis B theme needs the Denis B and Swishfolio Core plugins for its blocks.', 'denisb' ) . '</p></div>';
 	}
 );

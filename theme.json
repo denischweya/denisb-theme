@@ -1,0 +1,274 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.8/theme.json",
+	"version": 3,
+	"settings": {
+		"appearanceTools": true,
+		"useRootPaddingAwareAlignments": false,
+		"color": {
+			"defaultPalette": false,
+			"defaultGradients": false,
+			"defaultDuotone": false,
+			"palette": [
+				{
+					"slug": "bg",
+					"name": "Background",
+					"color": "var(--bg)"
+				},
+				{
+					"slug": "fg",
+					"name": "Text",
+					"color": "var(--fg)"
+				},
+				{
+					"slug": "fg2",
+					"name": "Soft text",
+					"color": "var(--fg2)"
+				},
+				{
+					"slug": "body",
+					"name": "Body text",
+					"color": "var(--body)"
+				},
+				{
+					"slug": "muted",
+					"name": "Muted",
+					"color": "var(--muted)"
+				},
+				{
+					"slug": "accent",
+					"name": "Accent",
+					"color": "var(--accent)"
+				},
+				{
+					"slug": "surface",
+					"name": "Surface",
+					"color": "var(--surface)"
+				},
+				{
+					"slug": "surface2",
+					"name": "Surface 2",
+					"color": "var(--surface2)"
+				},
+				{
+					"slug": "surface3",
+					"name": "Surface 3",
+					"color": "var(--surface3)"
+				},
+				{
+					"slug": "line",
+					"name": "Line",
+					"color": "var(--line)"
+				},
+				{
+					"slug": "line2",
+					"name": "Line 2",
+					"color": "var(--line2)"
+				},
+				{
+					"slug": "lime",
+					"name": "Lime",
+					"color": "#d4f36b"
+				},
+				{
+					"slug": "ink",
+					"name": "Ink",
+					"color": "#0e0e0d"
+				}
+			]
+		},
+		"layout": {
+			"contentSize": "1440px",
+			"wideSize": "1440px"
+		},
+		"spacing": {
+			"defaultSpacingSizes": false,
+			"units": [
+				"px",
+				"em",
+				"rem",
+				"%",
+				"vw",
+				"vh"
+			],
+			"spacingSizes": [
+				{
+					"slug": "gutter-sm",
+					"name": "Gutter (small)",
+					"size": "clamp(24px,4vw,64px)"
+				},
+				{
+					"slug": "gutter",
+					"name": "Gutter",
+					"size": "clamp(32px,5vw,72px)"
+				},
+				{
+					"slug": "gutter-lg",
+					"name": "Gutter (large)",
+					"size": "clamp(40px,5vw,72px)"
+				},
+				{
+					"slug": "case-section",
+					"name": "Case study section",
+					"size": "clamp(72px,9vw,128px)"
+				},
+				{
+					"slug": "section",
+					"name": "Section",
+					"size": "clamp(80px,10vw,140px)"
+				}
+			]
+		},
+		"typography": {
+			"defaultFontSizes": false,
+			"fluid": false,
+			"fontFamilies": [
+				{
+					"slug": "geist",
+					"name": "Geist",
+					"fontFamily": "\"Geist\", system-ui, sans-serif"
+				},
+				{
+					"slug": "geist-mono",
+					"name": "Geist Mono",
+					"fontFamily": "'Geist Mono', monospace"
+				},
+				{
+					"slug": "bebas",
+					"name": "Bebas Neue",
+					"fontFamily": "'Bebas Neue', sans-serif"
+				},
+				{
+					"slug": "instrument",
+					"name": "Instrument Serif",
+					"fontFamily": "'Instrument Serif', serif"
+				}
+			],
+			"fontSizes": [
+				{
+					"slug": "small",
+					"name": "Small",
+					"size": "14px"
+				},
+				{
+					"slug": "base",
+					"name": "Base",
+					"size": "16px"
+				},
+				{
+					"slug": "medium",
+					"name": "Medium",
+					"size": "17px"
+				},
+				{
+					"slug": "body",
+					"name": "Body",
+					"size": "18px"
+				},
+				{
+					"slug": "large",
+					"name": "Large",
+					"size": "24px"
+				}
+			]
+		}
+	},
+	"styles": {
+		"spacing": {
+			"blockGap": "0px",
+			"padding": {
+				"top": "0px",
+				"right": "0px",
+				"bottom": "0px",
+				"left": "0px"
+			}
+		},
+		"elements": {
+			"heading": {
+				"spacing": {
+					"margin": {
+						"top": "0",
+						"bottom": "0"
+					}
+				}
+			},
+			"link": {
+				"typography": {
+					"textDecoration": "none"
+				}
+			}
+		},
+		"blocks": {
+			"core/paragraph": {
+				"spacing": {
+					"margin": {
+						"top": "0",
+						"bottom": "0"
+					}
+				}
+			},
+			"core/image": {
+				"spacing": {
+					"margin": {
+						"top": "0",
+						"bottom": "0"
+					}
+				}
+			},
+			"core/quote": {
+				"spacing": {
+					"margin": {
+						"top": "0",
+						"bottom": "0"
+					}
+				}
+			},
+			"core/list": {
+				"spacing": {
+					"margin": {
+						"top": "0",
+						"bottom": "0"
+					},
+					"padding": {
+						"left": "0"
+					}
+				}
+			}
+		}
+	},
+	"templateParts": [
+		{
+			"name": "header",
+			"title": "Header",
+			"area": "header"
+		},
+		{
+			"name": "header-case",
+			"title": "Header (case studies)",
+			"area": "header"
+		},
+		{
+			"name": "contact",
+			"title": "Contact band",
+			"area": "uncategorized"
+		},
+		{
+			"name": "footer",
+			"title": "Footer",
+			"area": "footer"
+		},
+		{
+			"name": "footer-case",
+			"title": "Footer (case studies)",
+			"area": "footer"
+		}
+	],
+	"customTemplates": [
+		{
+			"name": "page-product",
+			"title": "Product page",
+			"postTypes": [
+				"page"
+			]
+		}
+	]
+}

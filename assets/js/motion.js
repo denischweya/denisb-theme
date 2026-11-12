@@ -7,42 +7,12 @@
   'use strict';
   var isHome = document.body.classList.contains('home');
 
-  function setupRotator() {
-    var rot = document.querySelector('.rot');
-    if (!rot) return;
-    var words = [];
-    try { words = JSON.parse(rot.getAttribute('data-words') || '[]'); } catch (e) {}
-    if (words.length < 2) return;
-    var sr = rot.firstElementChild, w = 0;
-    var cell = 'grid-area:1/1;display:inline-flex;white-space:nowrap';
-    function word(text, anim, base, out) {
-      var s = document.createElement('span');
-      s.className = out ? 'rot-word rot-out' : 'rot-word';
-      s.setAttribute('aria-hidden', 'true');
-      s.style.cssText = cell;
-      text.split('').forEach(function (c, i) {
-        var ch = document.createElement('span');
-        ch.style.cssText = 'display:inline-block;animation:' + anim + ' .7s cubic-bezier(.65,0,.15,1) both;animation-delay:' + (base + i * 38) + 'ms';
-        ch.textContent = c;
-        s.appendChild(ch);
-      });
-      return s;
-    }
-    setInterval(function () {
-      var prev = w;
-      w = (w + 1) % words.length;
-      while (rot.lastChild !== sr) rot.removeChild(rot.lastChild);
-      rot.appendChild(word(words[w], 'chIn', 160, false));
-      rot.appendChild(word(words[prev], 'chOut', 0, true));
-    }, 2800);
-  }
-
   function setupReveal() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
     var els = [], io;
     if (isHome) {
       document.querySelectorAll('main section').forEach(function (sec) {
-        var hero = sec.dataset.screenLabel === 'Hero';
+        var hero = sec.classList.contains('is-style-db-hero');
         Array.prototype.forEach.call(sec.children, function (ch, ci) {
           var kids = Array.prototype.slice.call(ch.children);
           if (!hero && getComputedStyle(ch).display === 'grid' && kids.length >= 3 && ch.tagName !== 'FORM') {
@@ -50,11 +20,11 @@
           } else { ch.dataset.d = hero ? ci * 120 : 0; els.push(ch); }
         });
       });
-      document.querySelectorAll('#brandora figure, #work > a').forEach(function (el) { el.classList.add('rv-img'); });
+      document.querySelectorAll('.is-style-db-browser, .is-style-db-scroll-card').forEach(function (el) { el.classList.add('rv-img'); });
     } else {
-      document.querySelectorAll('main > section, main > a').forEach(function (sec) {
-        if (sec.tagName === 'A') { sec.classList.add('rv-img'); sec.dataset.d = 0; els.push(sec); return; }
-        Array.prototype.forEach.call(sec.children, function (ch, i) { ch.dataset.d = sec.dataset.screenLabel === 'Case hero' ? i * 110 : 0; els.push(ch); });
+      document.querySelectorAll('.entry-content > section, .entry-content > .is-style-db-browser-lg, main > section').forEach(function (sec) {
+        if (sec.tagName !== 'SECTION') { sec.classList.add('rv-img'); sec.dataset.d = 0; els.push(sec); return; }
+        Array.prototype.forEach.call(sec.children, function (ch, i) { ch.dataset.d = sec.classList.contains('is-style-db-case-hero') ? i * 110 : 0; els.push(ch); });
       });
     }
     io = new IntersectionObserver(function (entries) {
@@ -220,8 +190,24 @@
     raf = requestAnimationFrame(tick);
   }
 
-  setupRotator();
+  /*
+   * Scrolling screenshots: tall images pan on hover, at a speed that matches
+   * their height (about 2s per screen of scrolling).
+   */
+  function setupScroll() {
+    document.querySelectorAll('.is-style-db-scroll img, .is-style-db-scroll-card img').forEach(function (img) {
+      function set() {
+        var ratio = img.naturalHeight / img.naturalWidth;
+        if (!ratio || ratio < 1.5) return;
+        img.closest('.wp-block-image').classList.add('is-scrollable');
+        img.closest('.wp-block-image').style.setProperty('--project-scroll-duration', Math.round(ratio * 2.05) + 's');
+      }
+      if (img.complete) set(); else img.addEventListener('load', set);
+    });
+  }
+
   requestAnimationFrame(setupReveal);
+  setupScroll();
   setupCursor();
   if (isHome) setTimeout(setupDog, 400);
 })();
