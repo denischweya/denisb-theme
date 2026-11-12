@@ -1,5 +1,5 @@
 /*
- * Motion for the homepage and case studies: rotating headline words, scroll
+ * Motion for the homepage and case studies: scroll
  * reveals, the custom cursor and the dog that chases it. Ported from the
  * original design without behaviour changes.
  */
@@ -194,20 +194,7 @@
    * Scrolling screenshots: tall images pan on hover, at a speed that matches
    * their height (about 2s per screen of scrolling).
    */
-  function setupScroll() {
-    document.querySelectorAll('.is-style-db-scroll img, .is-style-db-scroll-card img').forEach(function (img) {
-      function set() {
-        var ratio = img.naturalHeight / img.naturalWidth;
-        if (!ratio || ratio < 1.5) return;
-        img.closest('.wp-block-image').classList.add('is-scrollable');
-        img.closest('.wp-block-image').style.setProperty('--project-scroll-duration', Math.round(ratio * 2.05) + 's');
-      }
-      if (img.complete) set(); else img.addEventListener('load', set);
-    });
-  }
-
   requestAnimationFrame(setupReveal);
-  setupScroll();
   setupCursor();
   if (isHome) setTimeout(setupDog, 400);
 })();

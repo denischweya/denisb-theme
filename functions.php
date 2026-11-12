@@ -57,6 +57,7 @@ add_action(
 		if ( is_front_page() || is_singular( 'sfcore_project' ) ) {
 			wp_enqueue_script( 'denisb-motion', "$uri/js/motion.js", array(), $ver, array( 'strategy' => 'defer', 'in_footer' => true ) );
 		}
+		wp_enqueue_script( 'denisb-scroll', "$uri/js/scroll.js", array(), $ver, array( 'strategy' => 'defer', 'in_footer' => true ) );
 		wp_enqueue_script( 'denisb-rotate', "$uri/js/rotate.js", array(), $ver, array( 'strategy' => 'defer', 'in_footer' => true ) );
 	},
 	20

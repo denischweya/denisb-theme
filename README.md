@@ -40,7 +40,7 @@ Registered in `functions.php` and styled in `assets/css/variations.css`.
 | Swishfolio Core Features | Numbered list, Link cards, Service cards, Built cards, Process steps |
 | Swishfolio Core Portfolio, CV, Testimonials, FAQ, Links | Work list, Experience list, Quote cards, Minimal, Underlined links |
 
-Tall screenshots in the scrolling image styles scroll on hover. `motion.js` sets the duration from the image's height.
+Tall screenshots in the scrolling image styles scroll on hover. `scroll.js` sets the duration from the image's height.
 
 ## theme.json
 
@@ -59,7 +59,8 @@ The palette points at the CSS variables in `base.css`, so the light and dark mod
 | `assets/css/pages.css`, `blocks.css` | Product pages and the catalogue (the `page-product` template) |
 | `assets/css/mega-menu.css` | The Products mega menu |
 | `assets/css/editor.css` | Editor canvas width and spacing |
-| `assets/js/motion.js` | Scroll reveals, scrolling screenshots, the custom cursor and the dog. All of it respects `prefers-reduced-motion`. |
+| `assets/js/motion.js` | Scroll reveals, the custom cursor and the dog on the homepage and case studies. All of it respects `prefers-reduced-motion`. |
+| `assets/js/scroll.js` | Scrolling screenshots on hover, on every page |
 | `assets/js/rotate.js` | Rotating headline words (the plugin's **Rotating words** format) |
 
 ## License

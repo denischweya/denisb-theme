@@ -38,3 +38,6 @@ section[id]{scroll-margin-top:90px}
 .wp-block-image.banner{margin-top:clamp(40px,5vw,64px)}
 .wp-block-image.banner img{width:100%;height:auto;display:block}
 .shots .wp-element-caption{margin:12px 0 0;font-size:16px;line-height:1.5;color:var(--muted)}
+
+/* Demo screenshot in a browser frame, in place of the banner. */
+.banner-frame{margin-top:clamp(40px,5vw,64px)}
